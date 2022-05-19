@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+/**
+ * Vet REST controller
+ * Endpoint: /api/vets
+ */
 @RestController
 @RequestMapping("/api")
 public class VetController {
@@ -33,7 +38,7 @@ public class VetController {
                 .orElseThrow(()->new VetNotFoundException(Messages.NOTFOUND));
     }
 
-    @PostMapping("/vets/")
+    @PostMapping("/vets")
     public ResponseEntity<ErrorResponse> postVet(@RequestBody Vet vet){
          vetRepo.save(vet);
         return ErrorHandler.reply(Messages.SAVED,HttpStatus.OK);
@@ -55,6 +60,7 @@ public class VetController {
         vetRepo.deleteById(id);
         return ErrorHandler.reply(Messages.DELETED,HttpStatus.OK);
     }
+
 
 
 }
