@@ -1,7 +1,5 @@
 package com.learning.spring.petclinic.error;
 
-import com.learning.spring.petclinic.error.ErrorResponse;
-import com.learning.spring.petclinic.vet.VetNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -39,5 +37,11 @@ public class ErrorHandler {
         return new ResponseEntity<>(errorResponse,HttpStatus.BAD_REQUEST);
     }
 
+    public static ResponseEntity<ErrorResponse> reply(String message, HttpStatus httpStatus){
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setStatus(httpStatus.value());
+        errorResponse.setMessage(message);
+        return new ResponseEntity<>(errorResponse,httpStatus);
+    }
 
 }

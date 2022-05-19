@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="vet")
 public class Vet extends Person {
-    @NotNull
+
     @Column(name = "specialty")
     private String specialty;
 

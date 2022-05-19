@@ -1,4 +1,4 @@
-package com.learning.spring.petclinic.vet;
+package com.learning.spring.petclinic.error;
 
 public class VetNotFoundException extends RuntimeException{
 

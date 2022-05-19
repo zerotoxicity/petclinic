@@ -3,6 +3,7 @@ package com.learning.spring.petclinic.entity;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @MappedSuperclass
 public class Person {
@@ -12,12 +13,12 @@ public class Person {
     private int id;
 
     @Column(name = "first_name")
-    @NotNull
+    @NotEmpty
     private String firstName;
 
     @Column(name = "last_name")
-    @NotNull
-    private String last_name;
+    @NotEmpty
+    private String lastName;
 
     public int getId() {
         return id;
@@ -35,11 +36,11 @@ public class Person {
         this.firstName = firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String last_name) {
+        this.lastName = last_name;
     }
 }
