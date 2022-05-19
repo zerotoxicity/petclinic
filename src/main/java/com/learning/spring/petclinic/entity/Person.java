@@ -1,9 +1,13 @@
 package com.learning.spring.petclinic.entity;
 
+import com.learning.spring.petclinic.error.Messages;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+
+import static com.learning.spring.petclinic.error.Messages.REGEX_ALPHANUMERIC_SPACE;
 
 @MappedSuperclass
 public class Person {
@@ -13,10 +17,12 @@ public class Person {
     private int id;
 
     @Column(name = "first_name")
+    @Pattern(regexp=REGEX_ALPHANUMERIC_SPACE)
     @NotEmpty
     private String firstName;
 
     @Column(name = "last_name")
+    @Pattern(regexp=REGEX_ALPHANUMERIC_SPACE)
     @NotEmpty
     private String lastName;
 

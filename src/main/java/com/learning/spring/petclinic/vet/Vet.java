@@ -2,15 +2,20 @@ package com.learning.spring.petclinic.vet;
 
 
 import com.learning.spring.petclinic.entity.Person;
+import com.learning.spring.petclinic.error.Messages;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+
+import static com.learning.spring.petclinic.error.Messages.REGEX_ALPHANUMERIC_SPACE;
 
 @Entity
 @Table(name="vet")
 public class Vet extends Person {
 
     @Column(name = "specialty")
+    @Pattern(regexp=REGEX_ALPHANUMERIC_SPACE)
     private String specialty;
 
     public Vet(String specialty){

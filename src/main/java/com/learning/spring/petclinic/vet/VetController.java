@@ -8,8 +8,10 @@ import com.learning.spring.petclinic.error.VetNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -39,13 +41,13 @@ public class VetController {
     }
 
     @PostMapping("/vets")
-    public ResponseEntity<ErrorResponse> postVet(@RequestBody Vet vet){
+    public ResponseEntity<ErrorResponse> postVet(@Valid @RequestBody Vet vet){
          vetRepo.save(vet);
         return ErrorHandler.reply(Messages.SAVED,HttpStatus.OK);
     }
 
     @PutMapping("/vets/{id}")
-    public ResponseEntity<ErrorResponse> updateVet(@PathVariable int id,@RequestBody Vet newVet){
+    public ResponseEntity<ErrorResponse> updateVet(@PathVariable int id,@Valid @RequestBody Vet newVet){
         Vet vet = vetRepo.findById(id).orElseThrow(()-> new VetNotFoundException(Messages.NOTFOUND));
         vet.setFirstName(newVet.getFirstName());
         vet.setLastName(newVet.getLastName());
