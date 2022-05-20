@@ -2,8 +2,7 @@ package com.learning.spring.petclinic.vet;
 
 
 import com.learning.spring.petclinic.entity.Person;
-import com.learning.spring.petclinic.error.Messages;
-import com.sun.istack.NotNull;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
