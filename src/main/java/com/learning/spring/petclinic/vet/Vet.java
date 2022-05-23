@@ -2,12 +2,11 @@ package com.learning.spring.petclinic.vet;
 
 
 import com.learning.spring.petclinic.entity.Person;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 
-import static com.learning.spring.petclinic.error.Messages.REGEX_ALPHANUMERIC_SPACE;
+import static com.learning.spring.petclinic.error.ErrorMessages.REGEX_ALPHANUMERIC_SPACE;
 
 @Entity
 @Table(name="vet")

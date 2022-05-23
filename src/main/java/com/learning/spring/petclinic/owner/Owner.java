@@ -3,6 +3,8 @@ package com.learning.spring.petclinic.owner;
 import com.learning.spring.petclinic.entity.Person;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +13,7 @@ import java.util.List;
 public class Owner extends Person {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @NotEmpty
     @JoinColumn(name="owner_id")
     private List<Pet> pets;
 

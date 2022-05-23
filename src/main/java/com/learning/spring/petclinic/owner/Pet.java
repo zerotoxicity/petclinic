@@ -14,7 +14,7 @@ public class Pet extends BaseEntity {
 
     public Pet(){}
 
-    public Pet(String name, Owner owner){
+    public Pet(String name){
         this.name=name;
     }
 

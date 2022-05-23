@@ -3,7 +3,7 @@ package com.learning.spring.petclinic.vet;
 
 import com.learning.spring.petclinic.error.ErrorHandler;
 import com.learning.spring.petclinic.error.ErrorResponse;
-import com.learning.spring.petclinic.error.Messages;
+import com.learning.spring.petclinic.error.ErrorMessages;
 import com.learning.spring.petclinic.error.VetNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,30 +36,30 @@ public class VetController {
     @GetMapping("/vets/{id}")
     public Vet getVet(@PathVariable int id){
         return vetRepo.findById(id)
-                .orElseThrow(()->new VetNotFoundException(Messages.NOTFOUND));
+                .orElseThrow(()->new VetNotFoundException(ErrorMessages.NOTFOUND));
     }
 
     @PostMapping("/vets")
     public ResponseEntity<ErrorResponse> postVet(@Valid @RequestBody Vet vet){
          vetRepo.save(vet);
-        return ErrorHandler.reply(Messages.SAVED,HttpStatus.OK);
+        return ErrorHandler.reply(ErrorMessages.SAVED,HttpStatus.OK);
     }
 
     @PutMapping("/vets/{id}")
     public ResponseEntity<ErrorResponse> updateVet(@PathVariable int id,@Valid @RequestBody Vet newVet){
-        Vet vet = vetRepo.findById(id).orElseThrow(()-> new VetNotFoundException(Messages.NOTFOUND));
+        Vet vet = vetRepo.findById(id).orElseThrow(()-> new VetNotFoundException(ErrorMessages.NOTFOUND));
         vet.setFirstName(newVet.getFirstName());
         vet.setLastName(newVet.getLastName());
         vet.setSpecialty(newVet.getSpecialty());
         vetRepo.save(vet);
-        return ErrorHandler.reply(Messages.UPDATED,HttpStatus.OK);
+        return ErrorHandler.reply(ErrorMessages.UPDATED,HttpStatus.OK);
     }
 
     @DeleteMapping("/vets/{id}")
     public ResponseEntity<ErrorResponse> deleteVet(@PathVariable int id){
-        if(!vetRepo.existsById(id)) throw new VetNotFoundException(Messages.NOTFOUND);
+        if(!vetRepo.existsById(id)) throw new VetNotFoundException(ErrorMessages.NOTFOUND);
         vetRepo.deleteById(id);
-        return ErrorHandler.reply(Messages.DELETED,HttpStatus.OK);
+        return ErrorHandler.reply(ErrorMessages.DELETED,HttpStatus.OK);
     }
 
 

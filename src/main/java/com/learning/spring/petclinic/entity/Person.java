@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
-import static com.learning.spring.petclinic.error.Messages.REGEX_ALPHANUMERIC_SPACE;
+import static com.learning.spring.petclinic.error.ErrorMessages.REGEX_ALPHANUMERIC_SPACE;
 
 @MappedSuperclass
 public class Person extends BaseEntity {

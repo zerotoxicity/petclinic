@@ -1,7 +1,7 @@
 package com.learning.spring.petclinic.vet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.learning.spring.petclinic.error.Messages;
+import com.learning.spring.petclinic.error.ErrorMessages;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -91,7 +91,7 @@ public class VetControllerTest {
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", notNullValue()))
-                .andExpect(jsonPath("$.message", is("Vet has been saved")));
+                .andExpect(jsonPath("$.message", is(ErrorMessages.SAVED)));
     }
 
     @Test
@@ -110,7 +110,7 @@ public class VetControllerTest {
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.message", is(Messages.UPDATED)));
+                .andExpect(jsonPath("$.message", is(ErrorMessages.UPDATED)));
     }
 
     @Test
@@ -129,7 +129,7 @@ public class VetControllerTest {
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message", is(Messages.ALPHANUMERIC)));
+                .andExpect(jsonPath("$.message", is(ErrorMessages.INVALID_INPUT)));
     }
 
     @Test

@@ -1,9 +1,5 @@
 package com.learning.spring.petclinic.error;
 
-import com.learning.spring.petclinic.error.ErrorResponse;
-import com.learning.spring.petclinic.error.Messages;
-import com.learning.spring.petclinic.error.OwnerNotFoundException;
-import com.learning.spring.petclinic.error.VetNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -41,7 +37,7 @@ public class ErrorHandler {
     public ResponseEntity<ErrorResponse> handler(MethodArgumentNotValidException e){
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setStatus(HttpStatus.BAD_REQUEST.value());
-        errorResponse.setMessage(Messages.ALPHANUMERIC);
+        errorResponse.setMessage(ErrorMessages.INVALID_INPUT);
         return new ResponseEntity<>(errorResponse,HttpStatus.BAD_REQUEST);
     }
 
