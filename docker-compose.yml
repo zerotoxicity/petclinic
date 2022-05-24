@@ -1,0 +1,26 @@
+version: '3'
+services:
+  #Connect to postgres db through localhost:5432
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=springstudent
+      - POSTGRES_PASSWORD=springstudent
+      - POSTGRES_DB=petclinic
+    #Binds port container port 5432 to host port 5432
+    ports:
+      - "5432:5432"
+
+  #Connect to Spring Boot backend through http://localhost:8080/
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      #Server address is set to 0.0.0.0 to prevent Docker container from listening on 127.0.0.1
+      server.address: 0.0.0.0
+      server.port: 8080
+    expose:
+      - '8080'

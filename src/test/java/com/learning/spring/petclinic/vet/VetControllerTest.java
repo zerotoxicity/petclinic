@@ -54,6 +54,14 @@ public class VetControllerTest {
         given(this.vetRepo.findAll()).willReturn(Lists.newArrayList(sam(), john()));
     }
 
+    /**
+     * Desc: GET all data from /api/vets
+     *
+     * Expected result:
+     * Status - 200
+     * Retrieves 2 entries
+     * @throws Exception
+     */
     @Test
     public void getVetsTest_Success() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
@@ -64,6 +72,14 @@ public class VetControllerTest {
                 .andExpect(jsonPath("$[1].firstName", is("John")));
     }
 
+    /**
+     * Desc: GET John's data from /api/vets
+     *
+     * Expected result:
+     * Status - 200
+     * Retrieves John's data
+     * @throws Exception
+     */
     @Test
     public void getVetTest_Success() throws Exception {
         Mockito.when(vetRepo.findById(john().getId())).thenReturn(java.util.Optional.of(john()));
@@ -75,7 +91,14 @@ public class VetControllerTest {
                 .andExpect(jsonPath("$", notNullValue()))
                 .andExpect(jsonPath("$.lastName", is("Doe")));
     }
-
+    /**
+     * Desc: POST 'tempVet' to /api/vets
+     *
+     * Expected result:
+     * Status - 200
+     * 'tempVet' posted
+     * @throws Exception
+     */
     @Test
     public void postVetTest_Success() throws Exception {
         Vet tempVet = new Vet("Entomology");
@@ -94,6 +117,14 @@ public class VetControllerTest {
                 .andExpect(jsonPath("$.message", is(ErrorMessages.SAVED)));
     }
 
+    /**
+     * Desc: Update "John" to "Thomas" through "/api/vets/ + john's id"
+     *
+     * Expected result:
+     * Status - 200
+     * John updated to Thomas
+     * @throws Exception
+     */
     @Test
     public void updateVetTest_Success() throws Exception {
         Vet tempVet = john();
@@ -103,7 +134,7 @@ public class VetControllerTest {
 
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
-                .put("/api/vets/2")
+                .put("/api/vets/"+john().getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(this.mapper.writeValueAsString(tempVet));
@@ -113,6 +144,15 @@ public class VetControllerTest {
                 .andExpect(jsonPath("$.message", is(ErrorMessages.UPDATED)));
     }
 
+
+    /**
+     * Desc: Update "John" to "Thomas+" through "/api/vets/ + john's id"
+     *
+     * Expected result:
+     * Status - 400
+     * Validation fails due to failing the regex
+     * @throws Exception
+     */
     @Test
     public void updateVetTest_WrongText() throws Exception {
         Vet tempVet = john();
@@ -132,6 +172,14 @@ public class VetControllerTest {
                 .andExpect(jsonPath("$.message", is(ErrorMessages.INVALID_INPUT)));
     }
 
+    /**
+     * Desc: DELETE Vet with the id 5
+     *
+     * Expected result:
+     * Status - 404
+     * Entity not found
+     * @throws Exception
+     */
     @Test
     public void deleteVetTest_NotFound() throws Exception {
         Mockito.when(vetRepo.findById(5)).thenReturn(null);

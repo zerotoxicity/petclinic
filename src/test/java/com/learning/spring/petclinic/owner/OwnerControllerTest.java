@@ -73,6 +73,15 @@ public class OwnerControllerTest {
         given(this.ownerRepo.findAll()).willReturn(Lists.newArrayList(joe(), kim()));
     }
 
+
+    /**
+     * Desc: GET all data from /api/owners
+     *
+     * Expected result:
+     * Status - 200
+     * Retrieves 2 entries
+     * @throws Exception
+     */
     @Test
     public void getOwnersTest_Success() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
@@ -84,6 +93,14 @@ public class OwnerControllerTest {
                 .andExpect(jsonPath("$[0].pets",hasSize(1)));
     }
 
+    /**
+     * Desc: GET Kim's data from /api/owners
+     *
+     * Expected result:
+     * Status - 200
+     * Retrieves Kim's data
+     * @throws Exception
+     */
     @Test
     public void getVetTest_Success() throws Exception {
         Mockito.when(ownerRepo.findById(kim().getId())).thenReturn(java.util.Optional.of(kim()));
@@ -96,6 +113,14 @@ public class OwnerControllerTest {
                 .andExpect(jsonPath("$.lastName", is("S")));
     }
 
+    /**
+     * Desc: GET Owner with the id 3's data from /api/owners
+     *
+     * Expected result:
+     * Status - 404
+     * Entity not found
+     * @throws Exception
+     */
     @Test
     public void getVetTest_NotFound() throws Exception {
         Mockito.when(ownerRepo.findById(kim().getId())).thenReturn(java.util.Optional.of(kim()));
@@ -107,6 +132,14 @@ public class OwnerControllerTest {
                 .andExpect(jsonPath("$.message", is(ErrorMessages.NOTFOUND)));
     }
 
+    /**
+     * Desc: POST 'tempOwner' to /api/owner
+     *
+     * Expected result:
+     * Status - 200
+     * 'tempOwner' posted
+     * @throws Exception
+     */
     @Test
     public void postVetTest_Success() throws Exception {
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/api/owners")
@@ -120,6 +153,14 @@ public class OwnerControllerTest {
                 .andExpect(jsonPath("$.message", is(ErrorMessages.SAVED)));
     }
 
+    /**
+     * Desc: POST 'tempVet' without any pets to /api/vets
+     *
+     * Expected result:
+     * Status - 400
+     * Validation fails due to no pets
+     * @throws Exception
+     */
     @Test
     public void postOwnerTest_NoPets() throws Exception {
         Owner temp = tempOwner();
@@ -135,6 +176,14 @@ public class OwnerControllerTest {
     }
 
 
+    /**
+     * Desc: Update "Joe" to "Sam" through "/api/vets/ + joe's id"
+     *
+     * Expected result:
+     * Status - 200
+     * Joe updated to Sam
+     * @throws Exception
+     */
     @Test
     public void updateOwnerTest_Success() throws Exception {
         Owner tempOwner = joe();
@@ -154,14 +203,23 @@ public class OwnerControllerTest {
                 .andExpect(jsonPath("$.message", is(ErrorMessages.UPDATED)));
     }
 
+
+    /**
+     * Desc: DELETE owner with the id 3
+     * Expected result:
+     * Status - 404
+     * Entity not found
+     * @throws Exception
+     */
     @Test
     public void deleteOwnerTest_NotFound() throws Exception {
         Mockito.when(ownerRepo.findById(3)).thenReturn(null);
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .delete("/api/vets/3")
+                        .delete("/api/owners/3")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
 
 }
+//
